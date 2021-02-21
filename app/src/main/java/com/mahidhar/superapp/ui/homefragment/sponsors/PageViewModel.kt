@@ -1,4 +1,4 @@
-package com.mahidhar.superapp.ui.main.sponsors
+package com.mahidhar.superapp.ui.homefragment.sponsors
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -7,42 +7,29 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import com.mahidhar.superapp.model.MicroApp
-import com.mahidhar.superapp.ui.main.featured.FeaturedRecyclerViewAdapter
-import com.mahidhar.superapp.ui.main.sponsors.SponsorholderFragment
-import com.mahidhar.superapp.viewmodel.FeaturedViewModel
+import com.mahidhar.superapp.ui.appsfragment.AppsFragment
+import com.mahidhar.superapp.ui.homefragment.HomeFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var featuredViewModel: FeaturedViewModel
     private val REQUEST_LOCATION_PERMISSION = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val mainSponsorPager = findViewById<ViewPager2>(R.id.main_sponsor_pager)
-        val mainSponsorTablayout = findViewById<TabLayout>(R.id.main_sponsor_tablayout)
-        val mainFeaturedRecyclerView = findViewById<RecyclerView>(R.id.main_featured_recyclerview)
 
-        val adapter = ScreenSlidePagerAdapter(this)
-        mainSponsorPager.adapter = adapter
-        TabLayoutMediator(mainSponsorTablayout, mainSponsorPager) { tab, position ->
-
-        }.attach()
+        val main_viewpager:ViewPager = findViewById<ViewPager>(R.id.main_viewpager)
+        val main_tablayout:TabLayout = findViewById<TabLayout>(R.id.main_tablayout)
+        setupViewPager(main_viewpager)
+        main_tablayout.setupWithViewPager(main_viewpager)
+        main_tablayout.getTabAt(0)!!.setIcon(R.drawable.ic_home_black_18dp)
+        main_tablayout.getTabAt(1)!!.setIcon(R.drawable.ic_apps_black_18dp)
+        main_tablayout.getTabAt(2)!!.setIcon(R.drawable.ic_history_black_18dp)
 
         supportActionBar?.hide()
-
-        featuredViewModel = ViewModelProvider(this).get(FeaturedViewModel::class.java)
-        featuredViewModel.getMicroAppList().observe(this, Observer<List<MicroApp>> { microAppList ->
-            mainFeaturedRecyclerView.adapter = FeaturedRecyclerViewAdapter(microAppList)
-        })
 
     }
 
@@ -62,13 +49,34 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-}
+    private fun setupViewPager(viewPager: ViewPager) {
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter.addFragment(HomeFragment(),"Home")
+        adapter.addFragment(AppsFragment(),"Apps")
+        adapter.addFragment(AppsFragment(),"History")
+        viewPager.adapter = adapter
+    }
 
-class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
-    override fun getItemCount(): Int = 2
+    internal inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
+        private val mFragmentList = ArrayList<Fragment>()
+        private val mFragmentTitleList = ArrayList<String>()
 
-    override fun createFragment(position: Int): Fragment =
-        SponsorholderFragment.newInstance(
-            position
-        )
+        override fun getItem(position: Int): Fragment {
+            return mFragmentList[position]
+        }
+
+        override fun getCount(): Int {
+            return mFragmentList.size
+        }
+
+        fun addFragment(fragment: Fragment, title: String) {
+            mFragmentList.add(fragment)
+            mFragmentTitleList.add(title)
+        }
+
+        override fun getPageTitle(position: Int): CharSequence {
+            return mFragmentTitleList[position]
+        }
+    }
+
 }

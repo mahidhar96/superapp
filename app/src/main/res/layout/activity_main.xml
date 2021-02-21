@@ -42,62 +42,25 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/main_sponsor_linearlayout"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_layout"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
-        android:layout_margin="5dp"
         android:layout_height="wrap_content"
-        android:background="@color/teal_200"
-        android:orientation="vertical">
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/main_sponsor_pager"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:orientation="horizontal">
-
-        </androidx.viewpager2.widget.ViewPager2>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_layout">
+    </androidx.viewpager.widget.ViewPager>
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/main_sponsor_tablayout"
-            app:layout_constraintTop_toBottomOf="@id/main_sponsor_pager"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            app:tabBackground="@drawable/tab_selector"
-            app:tabGravity="center"
-            app:tabIndicatorHeight="0dp" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/main_featured_linearlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:layout_constraintTop_toBottomOf="@id/main_sponsor_linearlayout"
-        app:layout_constraintRight_toRightOf="parent"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/featured_title"
+            android:id="@+id/main_tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Featured"
-            android:textAlignment="textStart"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_margin="5dp"
-            android:id="@+id/main_featured_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/main_feature_rv_item"
-            tools:itemCount="8"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3"/>
-
-    </LinearLayout>
+            app:tabGravity="fill"
+            app:tabMode="fixed"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
 
 

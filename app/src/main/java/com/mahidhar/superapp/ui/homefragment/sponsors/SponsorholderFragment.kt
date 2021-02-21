@@ -1,4 +1,4 @@
-package com.mahidhar.superapp.ui.main.sponsors
+package com.mahidhar.superapp.ui.homefragment.sponsors
 
 import android.os.Bundle
 import android.view.LayoutInflater

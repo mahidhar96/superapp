@@ -10,7 +10,7 @@ import retrofit2.http.GET
 
 import java.util.*
 
-private const val BASE_URL = "http://192.168.0.4:8000/"
+private const val BASE_URL = "http://127.0.0.1:7000/"
 
 private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
@@ -21,7 +21,7 @@ private val retrofit = Retrofit  .Builder()
 
 
 interface FeaturedAPIService {
-    @GET("data.json")
+    @GET("microapps")
     fun getMicroAppList():Call<List<MicroApp>>
 }
 
