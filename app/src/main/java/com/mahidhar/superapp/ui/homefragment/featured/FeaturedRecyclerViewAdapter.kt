@@ -1,13 +1,8 @@
 package com.mahidhar.superapp.ui.homefragment.featured
 
 import android.app.AlertDialog
-import android.app.PendingIntent
 import android.content.Intent
-import android.content.pm.ShortcutInfo
-import android.content.pm.ShortcutManager
-import android.graphics.drawable.Icon
-import android.net.Uri
-import android.os.PersistableBundle
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +10,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mahidhar.superapp.R
 import com.mahidhar.superapp.model.MicroApp
 import com.mahidhar.superapp.ui.webapp.WebAppActivity
 import com.mahidhar.superapp.utils.IconUtil
 import com.mahidhar.superapp.utils.ShortcutUtil
+import java.io.InputStream
+import java.net.URL
 import java.util.*
 
 
@@ -78,7 +74,11 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerVi
             alertDialog.setPositiveButton(
                 "yes"
             ) { _, _ ->
-                ShortcutUtil.createWebActivityShortcut(app_view.context,micro_app!!.name,micro_app!!.source,IconUtil.getIcon(micro_app!!.icon))
+                ShortcutUtil.createWebActivityShortcut(
+                    app_view.context, micro_app!!.name, micro_app!!.source, IconUtil.getIcon(
+                        micro_app!!.icon
+                    )
+                )
                 Toast.makeText(app_view.context, "Added Shortcut to Home Screen", Toast.LENGTH_LONG).show()
             }
             alertDialog.setNegativeButton(
