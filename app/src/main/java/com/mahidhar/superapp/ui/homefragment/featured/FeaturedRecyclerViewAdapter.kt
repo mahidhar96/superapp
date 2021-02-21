@@ -1,7 +1,13 @@
 package com.mahidhar.superapp.ui.homefragment.featured
 
 import android.app.AlertDialog
+import android.app.PendingIntent
 import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
+import android.graphics.drawable.Icon
+import android.net.Uri
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +15,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mahidhar.superapp.R
 import com.mahidhar.superapp.model.MicroApp
 import com.mahidhar.superapp.ui.webapp.WebAppActivity
+import com.mahidhar.superapp.utils.IconUtil
+import com.mahidhar.superapp.utils.ShortcutUtil
+import java.util.*
+
 
 class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerView.Adapter<FeaturedRecyclerViewAdapter.MicroAppHolder>() {
 
@@ -56,8 +67,8 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerVi
             view.setOnClickListener(this)
             view.setOnLongClickListener(View.OnLongClickListener {
                 showAlertDialog(micro_app)
-                Toast.makeText(app_view.context,"Long Tapped on item",Toast.LENGTH_LONG).show()
-                true })
+                true
+            })
         }
 
         private fun showAlertDialog(micro_app: MicroApp?) {
@@ -67,12 +78,13 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerVi
             alertDialog.setPositiveButton(
                 "yes"
             ) { _, _ ->
-                Toast.makeText(app_view.context, "Yes,Alert dialog closed.", Toast.LENGTH_LONG).show()
+                ShortcutUtil.createWebActivityShortcut(app_view.context,micro_app!!.name,micro_app!!.source,IconUtil.getIcon(micro_app!!.icon))
+                Toast.makeText(app_view.context, "Added Shortcut to Home Screen", Toast.LENGTH_LONG).show()
             }
             alertDialog.setNegativeButton(
                 "No"
             ) { _, _ ->
-                Toast.makeText(app_view.context, "No,Alert dialog closed.", Toast.LENGTH_LONG).show()
+                Toast.makeText(app_view.context, "Shortcut Not Added", Toast.LENGTH_LONG).show()
             }
             val alert: AlertDialog = alertDialog.create()
             alert.setCanceledOnTouchOutside(false)
@@ -85,19 +97,7 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerVi
             this.type = micro_app.type
             this.description = micro_app.description
             this.title.setText(micro_app.description)
-            this.image.setImageResource(
-                when (micro_app.icon) {
-                    "dining_black" -> R.drawable.ic_takeout_dining_black_18dp
-                    "subscriptions_black" -> R.drawable.ic_subscriptions_black_18dp
-                    "flight_black" -> R.drawable.ic_flight_black_18dp
-                    "bus_black" -> R.drawable.ic_directions_bus_black_18dp
-                    "receipt_black" -> R.drawable.ic_receipt_black_18dp
-                    "payments_black" -> R.drawable.ic_payments_black_18dp
-                    "delivery_black" -> R.drawable.ic_delivery_dining_black_18dp
-//            "dining_black" -> R.drawable.ic_takeout_dining_black_18dp
-                    else -> R.drawable.ic_search_black
-                }
-            )
+            this.image.setImageResource(IconUtil.getIcon(micro_app.icon))
         }
 
         override fun onClick(v: View) {

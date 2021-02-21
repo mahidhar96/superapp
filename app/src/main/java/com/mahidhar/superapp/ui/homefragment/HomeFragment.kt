@@ -1,10 +1,12 @@
 package com.mahidhar.superapp.ui.homefragment
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +19,9 @@ import com.mahidhar.superapp.R
 import com.mahidhar.superapp.model.MicroApp
 import com.mahidhar.superapp.ui.homefragment.featured.FeaturedRecyclerViewAdapter
 import com.mahidhar.superapp.ui.homefragment.sponsors.SponsorholderFragment
+import com.mahidhar.superapp.ui.webapp.WebAppActivity
 import com.mahidhar.superapp.viewmodel.FeaturedViewModel
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,9 +65,11 @@ class HomeFragment : Fragment() {
         }.attach()
 
         featuredViewModel = ViewModelProvider(this).get(FeaturedViewModel::class.java)
-        featuredViewModel.getMicroAppList().observe(viewLifecycleOwner, Observer<List<MicroApp>> { microAppList ->
-            homeFeaturedRecyclerView?.adapter = FeaturedRecyclerViewAdapter(microAppList)
-        })
+        featuredViewModel.getMicroAppList().observe(
+            viewLifecycleOwner,
+            Observer<List<MicroApp>> { microAppList ->
+                homeFeaturedRecyclerView?.adapter = FeaturedRecyclerViewAdapter(microAppList)
+            })
         return view
     }
 
