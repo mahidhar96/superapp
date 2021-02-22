@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.mahidhar.superapp.ui.appsfragment.AppsFragment
+import com.mahidhar.superapp.ui.historyfragment.HistoryFragment
 import com.mahidhar.superapp.ui.homefragment.HomeFragment
 
 class MainActivity : AppCompatActivity() {
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(HomeFragment(),"Home")
         adapter.addFragment(AppsFragment(),"Apps")
-        adapter.addFragment(AppsFragment(),"History")
+        adapter.addFragment(HistoryFragment(),"History")
         viewPager.adapter = adapter
     }
 

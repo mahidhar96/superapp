@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.mahidhar.superapp.R
+import com.mahidhar.superapp.model.Transaction
+import com.mahidhar.superapp.viewmodel.TransactionViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +26,7 @@ class HistoryFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var historyViewModel: TransactionViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +39,18 @@ class HistoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_history, container, false)
+        val historyRecyclerView = view.findViewById<RecyclerView>(R.id.history_recyclerview)
+        historyViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
+        historyViewModel.getMicroAppList().observe(
+            viewLifecycleOwner,
+            Observer<List<Transaction>> { transactionList ->
+                historyRecyclerView?.adapter = HistoryRecyclerViewAdapter(transactionList)
+            })
+
+        return view
     }
 
     companion object {
