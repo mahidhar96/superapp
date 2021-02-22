@@ -82,7 +82,10 @@
             tools:listitem="@layout/home_feature_rv_item"
             tools:itemCount="8"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="4"/>
+            app:spanCount="4"
+            android:nestedScrollingEnabled="false"
+            android:paddingBottom="400dp"
+            android:clipToPadding="false"/>
 
     </LinearLayout>
 
