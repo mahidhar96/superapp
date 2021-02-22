@@ -5,11 +5,34 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.homefragment.HomeFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/home_search_layout"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:background="@color/white"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center|right">
+
+        <EditText
+            android:id="@+id/home_search"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:ems="10"
+            android:hint="@string/search"
+            android:drawableRight="@drawable/ic_search_black"
+            android:gravity="right" >
+        </EditText>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/home_sponsor_linearlayout"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_search_layout"
         android:layout_width="match_parent"
         android:layout_margin="5dp"
         android:layout_height="wrap_content"
@@ -56,10 +79,10 @@
             android:id="@+id/home_featured_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/main_feature_rv_item"
+            tools:listitem="@layout/home_feature_rv_item"
             tools:itemCount="8"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3"/>
+            app:spanCount="4"/>
 
     </LinearLayout>
 

@@ -2,7 +2,6 @@ package com.mahidhar.superapp.ui.homefragment.featured
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,28 +15,25 @@ import com.mahidhar.superapp.model.MicroApp
 import com.mahidhar.superapp.ui.webapp.WebAppActivity
 import com.mahidhar.superapp.utils.IconUtil
 import com.mahidhar.superapp.utils.ShortcutUtil
-import java.io.InputStream
-import java.net.URL
-import java.util.*
 
 
 class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerView.Adapter<FeaturedRecyclerViewAdapter.MicroAppHolder>() {
 
 //    private val micro_app_list:Array<MicroApp> = arrayOf(
-//        MicroApp(0,"Pay Bills","Pay Bills", "web","receipt_black","https://www.infosys.com/"),
-//        MicroApp(1,"Payment App","Scan & Pay", "web","payments_black","https://www.infosys.com/"),
-//        MicroApp(2,"Food Delivery","Order Food", "web","dining_black","https://www.infosys.com/"),
-//        MicroApp(3,"Bus Tickets","Book Bus Tickets", "instant","bus_black","https://www.infosys.com/"),
-//        MicroApp(4,"Stuff Delivery","Send Stuff", "web","delivery_black","https://www.infosys.com/"),
-//        MicroApp(5,"Flight Tickets","Book FLight Tickets", "instant","flight_black","https://www.infosys.com/"),
-//        MicroApp(6,"Subscriptions","Subscribe and Pay", "web","subscriptions_black","https://www.infosys.com/"),
-//        MicroApp(7,"Take Surveys","Take Surveys", "instant","qewewe","https://www.infosys.com/")
+//        MicroApp(0,"Pay Bills","Pay Bills", "web","receipt_black","https://127.0.0.1:1001"),
+//        MicroApp(1,"Payment App","Scan & Pay", "web","payments_black","https://127.0.0.1:1001"),
+//        MicroApp(2,"Food Delivery","Order Food", "web","dining_black","https:/127.0.0.1:1001"),
+//        MicroApp(3,"Bus Tickets","Book Bus Tickets", "instant","bus_black","https://127.0.0.1:1001"),
+//        MicroApp(4,"Stuff Delivery","Send Stuff", "web","delivery_black","https://127.0.0.1:1001"),
+//        MicroApp(5,"Flight Tickets","Book FLight Tickets", "instant","flight_black","https://127.0.0.1:1001"),
+//        MicroApp(6,"Subscriptions","Subscribe and Pay", "web","subscriptions_black","https://127.0.0.1:1001"),
+//        MicroApp(7,"Take Surveys","Take Surveys", "instant","qewewe","https://127.0.0.1:1001")
 //    )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MicroAppHolder {
         Log.i("Featured Recycler Adapter", microAppList.toString())
         val layout_inflator = LayoutInflater.from(parent.context)
-        val view = layout_inflator.inflate(R.layout.main_feature_rv_item, parent, false) ;
+        val view = layout_inflator.inflate(R.layout.home_feature_rv_item, parent, false) ;
         return MicroAppHolder(view);
     }
 
