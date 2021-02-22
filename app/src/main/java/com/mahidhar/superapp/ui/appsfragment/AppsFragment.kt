@@ -5,7 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.mahidhar.superapp.R
+import com.mahidhar.superapp.model.MicroApp
+import com.mahidhar.superapp.ui.homefragment.featured.FeaturedRecyclerViewAdapter
+import com.mahidhar.superapp.viewmodel.FeaturedViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +41,19 @@ class AppsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_apps, container, false)
+        val view:View = inflater.inflate(R.layout.fragment_apps, container, false)
+        val financeRecyclerView:RecyclerView = view.findViewById(R.id.apps_finance_recycler_view)
+        val storesRecyclerView:RecyclerView = view.findViewById(R.id.apps_stores_recycler_view)
+
+        val featuredViewModel:FeaturedViewModel = ViewModelProvider(this).get(FeaturedViewModel::class.java)
+        featuredViewModel.getMicroAppList().observe(
+            viewLifecycleOwner,
+            Observer<List<MicroApp>> { microAppList ->
+                financeRecyclerView?.adapter = FeaturedRecyclerViewAdapter(microAppList)
+                storesRecyclerView?.adapter = FeaturedRecyclerViewAdapter(microAppList)
+            })
+
+        return view
     }
 
     companion object {
