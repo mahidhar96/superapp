@@ -23,8 +23,8 @@
             android:layout_margin="5dp"
             android:ems="10"
             android:hint="@string/search"
-            android:drawableRight="@drawable/ic_search_black"
-            android:gravity="right" >
+            android:drawableLeft="@drawable/ic_search_black"
+            android:gravity="left" >
         </EditText>
 
     </LinearLayout>
