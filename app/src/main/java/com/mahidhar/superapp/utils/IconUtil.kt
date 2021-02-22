@@ -4,10 +4,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import coil.Coil
-import coil.ImageLoader
-import coil.imageLoader
-import coil.request.ImageRequest
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.mahidhar.superapp.R
 
 
@@ -42,29 +41,23 @@ object IconUtil {
         return icon
     }
 
-    fun getImage(context:Context,url:String): Drawable? {
-        var image:Drawable?=null
-        val imageLoader = ImageLoader.Builder(context).availableMemoryPercentage(0.25)
-            .crossfade(true)
-            .build()
-        val request = ImageRequest.Builder(context)
-            .data(url)
-            .target(
-                onStart = { placeholder ->
-                    if (placeholder != null) {
-                        image = placeholder
-                    }// Handle the placeholder drawable.
-                },
-                onSuccess = { result ->
-                    image = result// Handle the successful result.
-                },
-                onError = { error ->
-                    error// Handle the error drawable.
+    fun setIconWithURL(context: Context, imageView: ImageView, URL: String) {
+        Glide.with(context)
+            .asBitmap()
+            .load(URL)
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    imageView.setImageBitmap(resource)
                 }
-            )
-            .build()
-        imageLoader.enqueue(request)
-        return image
+
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    // this is called when imageView is cleared on lifecycle call or for
+                    // some other reason.
+                    // if you are referencing the bitmap somewhere else too other than this imageView
+                    // clear it here as you can no longer have the bitmap
+                }
+            })
     }
+
 
 }

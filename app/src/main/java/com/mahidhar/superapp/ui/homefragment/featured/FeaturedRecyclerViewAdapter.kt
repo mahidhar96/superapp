@@ -2,6 +2,8 @@ package com.mahidhar.superapp.ui.homefragment.featured
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.mahidhar.superapp.R
 import com.mahidhar.superapp.model.MicroApp
 import com.mahidhar.superapp.ui.webapp.WebAppActivity
@@ -71,8 +76,8 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerVi
                 "yes"
             ) { _, _ ->
                 ShortcutUtil.createWebActivityShortcut(
-                    app_view.context, micro_app!!.name, micro_app!!.source, IconUtil.getIcon(
-                        micro_app!!.icon
+                    app_view.context, micro_app!!.name, micro_app.source, IconUtil.getIcon(
+                        micro_app.icon
                     )
                 )
                 Toast.makeText(app_view.context, "Added Shortcut to Home Screen", Toast.LENGTH_LONG).show()
@@ -93,7 +98,8 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerVi
             this.type = micro_app.type
             this.description = micro_app.description
             this.title.setText(micro_app.description)
-            this.image.setImageResource(IconUtil.getIcon(micro_app.icon))
+            IconUtil.setIconWithURL(app_view.context,image,micro_app.icon)
+//            this.image.setImageResource(IconUtil.getIcon(micro_app.icon))
         }
 
         override fun onClick(v: View) {
