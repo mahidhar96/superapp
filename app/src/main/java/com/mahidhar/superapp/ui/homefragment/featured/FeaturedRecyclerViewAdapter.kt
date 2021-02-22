@@ -97,7 +97,7 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerVi
             this.id = micro_app.id
             this.type = micro_app.type
             this.description = micro_app.description
-            this.title.setText(micro_app.description)
+            this.title.setText(micro_app.name)
             IconUtil.setIconWithURL(app_view.context,image,micro_app.icon)
 //            this.image.setImageResource(IconUtil.getIcon(micro_app.icon))
         }
