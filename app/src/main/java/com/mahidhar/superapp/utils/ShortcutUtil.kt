@@ -8,12 +8,14 @@ import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.drawable.Icon
 import android.util.Log
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.mahidhar.superapp.R
+import com.mahidhar.superapp.model.MicroApp
 import com.mahidhar.superapp.ui.webapp.WebAppActivity
 
 object ShortcutUtil {
-    fun createWebActivityShortcut(context:Context,name:String,source:String,icon:Int) {
+    fun createWebActivityShortcut(context:Context,microApp:MicroApp) {
         Log.i("FeaturedRecyclerViewAdapter", "createShortcutApp")
 
         val shortcutManager = ContextCompat.getSystemService<ShortcutManager>(
@@ -24,13 +26,14 @@ object ShortcutUtil {
         if (shortcutManager!!.isRequestPinShortcutSupported) {
             // Assumes there's already a shortcut with the ID "my-shortcut".
             // The shortcut must be enabled.
-            val pinShortcutInfoBuilder = ShortcutInfo.Builder(context, "superapp_"+name)
-            pinShortcutInfoBuilder.setShortLabel(name)
+            val pinShortcutInfoBuilder: ShortcutInfo.Builder = ShortcutInfo.Builder(context, "superapp_"+microApp.name)
+            pinShortcutInfoBuilder.setShortLabel(microApp.name)
             val intent = Intent(Intent.ACTION_VIEW, null, context, WebAppActivity::class.java)
-            intent.putExtra("name",name)
-            intent.putExtra("source",source)
+            intent.putExtra("name",microApp.name)
+            intent.putExtra("source",microApp.source)
             pinShortcutInfoBuilder.setIntent(intent)
-            pinShortcutInfoBuilder.setIcon(Icon.createWithResource(context, icon))
+            IconUtil.setIconWithURL(context,pinShortcutInfoBuilder,microApp.icon)
+//            pinShortcutInfoBuilder.setIcon(Icon.createWithResource(context, icon))
             val pinShortcutInfo = pinShortcutInfoBuilder.build()
 
             // Create the PendingIntent object only if your app needs to be notified

@@ -1,8 +1,10 @@
 package com.mahidhar.superapp.utils
 
 import android.content.Context
+import android.content.pm.ShortcutInfo
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -48,6 +50,24 @@ object IconUtil {
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     imageView.setImageBitmap(resource)
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    // this is called when imageView is cleared on lifecycle call or for
+                    // some other reason.
+                    // if you are referencing the bitmap somewhere else too other than this imageView
+                    // clear it here as you can no longer have the bitmap
+                }
+            })
+    }
+
+    fun setIconWithURL(context: Context, shoortcutBuilder: ShortcutInfo.Builder, URL: String) {
+        Glide.with(context)
+            .asBitmap()
+            .load(URL)
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    shoortcutBuilder.setIcon(Icon.createWithBitmap(resource))
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {

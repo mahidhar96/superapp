@@ -75,11 +75,7 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerVi
             alertDialog.setPositiveButton(
                 "yes"
             ) { _, _ ->
-                ShortcutUtil.createWebActivityShortcut(
-                    app_view.context, micro_app!!.name, micro_app.source, IconUtil.getIcon(
-                        micro_app.icon
-                    )
-                )
+                ShortcutUtil.createWebActivityShortcut(app_view.context, micro_app!!)
                 Toast.makeText(app_view.context, "Added Shortcut to Home Screen", Toast.LENGTH_LONG).show()
             }
             alertDialog.setNegativeButton(
