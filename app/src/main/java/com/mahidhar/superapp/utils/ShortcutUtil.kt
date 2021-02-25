@@ -1,18 +1,15 @@
 package com.mahidhar.superapp.utils
 
-import android.app.Activity
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
-import android.graphics.drawable.Icon
 import android.util.Log
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import com.mahidhar.superapp.R
 import com.mahidhar.superapp.model.MicroApp
-import com.mahidhar.superapp.ui.webapp.WebAppActivity
+import com.mahidhar.superapp.ui.activity.WebAppActivity
+import com.mahidhar.superapp.ui.activity.booking.BookingActivity
 
 object ShortcutUtil {
     fun createWebActivityShortcut(context:Context,microApp:MicroApp) {
@@ -28,9 +25,20 @@ object ShortcutUtil {
             // The shortcut must be enabled.
             val pinShortcutInfoBuilder: ShortcutInfo.Builder = ShortcutInfo.Builder(context, "superapp_"+microApp.name)
             pinShortcutInfoBuilder.setShortLabel(microApp.name)
-            val intent = Intent(Intent.ACTION_VIEW, null, context, WebAppActivity::class.java)
-            intent.putExtra("name",microApp.name)
-            intent.putExtra("source",microApp.source)
+            var intent: Intent? = null
+            when (microApp.type) {
+                "booking" -> {
+                    intent = Intent(Intent.ACTION_VIEW, null, context, BookingActivity::class.java)
+                    intent.putExtra("source", microApp.source)
+                    intent.putExtra("name", microApp.name)
+                }
+                //web
+                else -> {
+                    intent = Intent(Intent.ACTION_VIEW, null, context, WebAppActivity::class.java)
+                    intent.putExtra("source", microApp.source)
+                    intent.putExtra("name", microApp.name)
+                }
+            }
             pinShortcutInfoBuilder.setIntent(intent)
             IconUtil.setIconWithURL(context,pinShortcutInfoBuilder,microApp.icon)
 //            pinShortcutInfoBuilder.setIcon(Icon.createWithResource(context, icon))

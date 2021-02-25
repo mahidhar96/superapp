@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.mahidhar.superapp.R
@@ -47,6 +48,7 @@ object IconUtil {
         Glide.with(context)
             .asBitmap()
             .load(URL)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     imageView.setImageBitmap(resource)
@@ -65,6 +67,7 @@ object IconUtil {
         Glide.with(context)
             .asBitmap()
             .load(URL)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     shoortcutBuilder.setIcon(Icon.createWithBitmap(resource))

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.mahidhar.superapp.R
 import com.mahidhar.superapp.model.Transaction
@@ -43,6 +44,7 @@ class HistoryFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_history, container, false)
         val historyRecyclerView = view.findViewById<RecyclerView>(R.id.history_recyclerview)
+        historyRecyclerView.addItemDecoration(DividerItemDecoration(view.context,DividerItemDecoration.VERTICAL))
         historyViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
         historyViewModel.getMicroAppList().observe(
             viewLifecycleOwner,

@@ -1,4 +1,4 @@
-package com.mahidhar.superapp.ui.webapp
+package com.mahidhar.superapp.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

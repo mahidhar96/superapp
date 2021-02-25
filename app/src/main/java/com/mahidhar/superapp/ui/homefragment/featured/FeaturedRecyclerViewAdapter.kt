@@ -2,8 +2,6 @@ package com.mahidhar.superapp.ui.homefragment.featured
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,17 +10,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import com.mahidhar.superapp.R
 import com.mahidhar.superapp.model.MicroApp
-import com.mahidhar.superapp.ui.webapp.WebAppActivity
+import com.mahidhar.superapp.ui.activity.WebAppActivity
+import com.mahidhar.superapp.ui.activity.booking.BookingActivity
 import com.mahidhar.superapp.utils.IconUtil
 import com.mahidhar.superapp.utils.ShortcutUtil
 
 
-class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerView.Adapter<FeaturedRecyclerViewAdapter.MicroAppHolder>() {
+class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) :
+    RecyclerView.Adapter<FeaturedRecyclerViewAdapter.MicroAppHolder>() {
 
 //    private val micro_app_list:Array<MicroApp> = arrayOf(
 //        MicroApp(0,"Pay Bills","Pay Bills", "web","receipt_black","https://127.0.0.1:1001"),
@@ -38,7 +35,7 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerVi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MicroAppHolder {
         Log.i("Featured Recycler Adapter", microAppList.toString())
         val layout_inflator = LayoutInflater.from(parent.context)
-        val view = layout_inflator.inflate(R.layout.home_feature_rv_item, parent, false) ;
+        val view = layout_inflator.inflate(R.layout.home_feature_rv_item, parent, false);
         return MicroAppHolder(view);
     }
 
@@ -51,14 +48,14 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerVi
         return microAppList.size
     }
 
-    class MicroAppHolder(view: View):RecyclerView.ViewHolder(view), View.OnClickListener{
-        var app_view:View = view
-        var id:Int?=null
-        var type:String?=null
-        var description:String?=null
-        val title:TextView = view.findViewById<TextView>(R.id.main_feature_app_text)
-        val image:ImageView = view.findViewById<ImageView>(R.id.main_feature_app_image)
-        var micro_app:MicroApp?=null
+    class MicroAppHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+        var app_view: View = view
+        var id: Int? = null
+        var type: String? = null
+        var description: String? = null
+        val title: TextView = view.findViewById<TextView>(R.id.main_feature_app_text)
+        val image: ImageView = view.findViewById<ImageView>(R.id.main_feature_app_image)
+        var micro_app: MicroApp? = null
 
         init {
             view.setOnClickListener(this)
@@ -76,7 +73,8 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerVi
                 "yes"
             ) { _, _ ->
                 ShortcutUtil.createWebActivityShortcut(app_view.context, micro_app!!)
-                Toast.makeText(app_view.context, "Added Shortcut to Home Screen", Toast.LENGTH_LONG).show()
+                Toast.makeText(app_view.context, "Added Shortcut to Home Screen", Toast.LENGTH_LONG)
+                    .show()
             }
             alertDialog.setNegativeButton(
                 "No"
@@ -88,21 +86,32 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) : RecyclerVi
             alert.show()
         }
 
-        fun bind(micro_app: MicroApp){
+        fun bind(micro_app: MicroApp) {
             this.micro_app = micro_app
             this.id = micro_app.id
             this.type = micro_app.type
             this.description = micro_app.description
             this.title.setText(micro_app.name)
-            IconUtil.setIconWithURL(app_view.context,image,micro_app.icon)
+            IconUtil.setIconWithURL(app_view.context, image, micro_app.icon)
 //            this.image.setImageResource(IconUtil.getIcon(micro_app.icon))
         }
 
         override fun onClick(v: View) {
             Log.d("Featured App", "Clicked")
-            val intent = Intent(app_view.context, WebAppActivity::class.java)
-            intent.putExtra("source", micro_app?.source)
-            intent.putExtra("name", micro_app?.name)
+            var intent: Intent? = null
+            when (micro_app!!.type) {
+                "booking" -> {
+                    intent = Intent(app_view.context, BookingActivity::class.java)
+                    intent.putExtra("source", micro_app?.source)
+                    intent.putExtra("name", micro_app?.name)
+                }
+                //web
+                else -> {
+                    intent = Intent(app_view.context, WebAppActivity::class.java)
+                    intent.putExtra("source", micro_app?.source)
+                    intent.putExtra("name", micro_app?.name)
+                }
+            }
             app_view.context.startActivity(intent)
         }
 
