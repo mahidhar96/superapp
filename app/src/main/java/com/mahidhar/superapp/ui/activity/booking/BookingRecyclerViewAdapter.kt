@@ -1,6 +1,7 @@
 package com.mahidhar.superapp.ui.activity.booking
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -38,16 +39,28 @@ class BookingRecyclerViewAdapter(val bookingItemList:List<BookingItem>):
         val name:TextView = view.findViewById(R.id.item_booking_name)
         val rating:TextView = view.findViewById(R.id.item_booking_rating)
         val additional:TextView = view.findViewById(R.id.item_booking_additional)
+        var bookingItem:BookingItem?=null
+
+        init {
+            view.setOnClickListener(this)
+        }
 
         fun bind(bookingItem:BookingItem){
             IconUtil.setIconWithURL(view.context,image,bookingItem.image)
             name.setText(bookingItem.name)
             rating.setText(bookingItem.rating)
             additional.setText(bookingItem.additional)
+            this.bookingItem = bookingItem
         }
 
-        override fun onClick(p0: View?) {
-            TODO("Not yet implemented")
+        override fun onClick(v: View?) {
+            val intent:Intent = Intent(view.context,BookingItemActivity::class.java)
+            intent.putExtra("name",bookingItem!!.name)
+            intent.putExtra("image",bookingItem!!.image)
+            intent.putExtra("type",bookingItem!!.type)
+            intent.putExtra("rating",bookingItem!!.rating)
+            intent.putExtra("additional",bookingItem!!.additional)
+            view.context.startActivity(intent)
         }
 
     }

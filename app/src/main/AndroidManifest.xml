@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Superapp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.booking.BookingActivity"/>
+        <activity android:name=".ui.activity.booking.BookingItemActivity"/>
+        <activity android:name=".ui.activity.booking.BookingActivity" />
         <activity
             android:name=".ui.activity.WebAppActivity"
             android:exported="true" />
