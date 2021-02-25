@@ -1,5 +1,5 @@
 package com.mahidhar.superapp
 
-object Contants {
-    val base_url:String = "http://stgrog.ddns.net:7000/"
+object Constants {
+    val base_url:String = "http://127.0.0.1:7000/"
 }
