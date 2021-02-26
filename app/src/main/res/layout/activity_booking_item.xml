@@ -87,7 +87,7 @@
         android:layout_marginTop="50dp"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:text="Book a table for: "/>
+        android:text=": "/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/booking_item_input_1"
@@ -105,7 +105,7 @@
         android:layout_margin="10dp"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:text="At time: "/>
+        android:text=": "/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/booking_item_input_2"
@@ -121,9 +121,10 @@
         app:layout_constraintTop_toBottomOf="@id/booking_item_input_2"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="20dp"
-        android:onClick="bookingButtonClicked"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:focusable="true"
         app:tint="@color/colorPrimary"
-        android:background="@color/white"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_check_circle_black_18dp"/>
 
