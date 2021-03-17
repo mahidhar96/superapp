@@ -1,7 +1,10 @@
 package com.mahidhar.superapp.ui.homefragment.featured
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.browser.trusted.TrustedWebActivityIntentBuilder
 import androidx.recyclerview.widget.RecyclerView
+import com.google.androidbrowserhelper.trusted.TwaLauncher
 import com.mahidhar.superapp.R
 import com.mahidhar.superapp.model.MicroApp
 import com.mahidhar.superapp.ui.activity.WebAppActivity
@@ -113,6 +118,18 @@ class FeaturedRecyclerViewAdapter(val microAppList: List<MicroApp>) :
                 }
             }
             app_view.context.startActivity(intent)
+
+//            launchTwa(Uri.parse(micro_app?.source),app_view.context)
+        }
+
+        fun launchTwa(uri: Uri, context: Context) {
+            val builder = TrustedWebActivityIntentBuilder(uri)
+                .setNavigationBarColor(Color.RED) // Use the builder to customise.
+                .setToolbarColor(Color.BLUE)
+//            TwaLauncher(builder,description,id)
+            val launcher = TwaLauncher(context)
+            //launcher.launch(builder, null, null)
+            launcher.launch(uri)
         }
 
     }
