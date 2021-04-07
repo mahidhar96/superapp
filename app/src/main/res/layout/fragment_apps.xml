@@ -5,63 +5,26 @@
     android:clipToPadding="false"
     android:paddingBottom="150dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".ui.appsfragment.AppsFragment">
 
-        <LinearLayout
-            android:id="@+id/apps_finance_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/background_less_rounded_box"
-            android:orientation="vertical"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <include android:id="@+id/apps_finance_layout" layout="@layout/layout_app_category"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Finance"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+        <include android:id="@+id/apps_food_layout" layout="@layout/layout_app_category"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/apps_finance_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="4"
-                tools:listitem="@layout/home_feature_rv_item" />
-        </LinearLayout>
+        <include android:id="@+id/apps_travel_layout" layout="@layout/layout_app_category"/>
 
-        <LinearLayout
-            android:id="@+id/apps_food_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/background_less_rounded_box"
-            android:orientation="vertical"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/apps_finance_layout">
+        <include android:id="@+id/apps_shopping_layout" layout="@layout/layout_app_category"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Stores"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+        <include android:id="@+id/apps_health_layout" layout="@layout/layout_app_category"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/apps_stores_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="4"
-                tools:listitem="@layout/home_feature_rv_item" />
-        </LinearLayout>
+        <include android:id="@+id/apps_daily_layout" layout="@layout/layout_app_category"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <include android:id="@+id/apps_games_layout" layout="@layout/layout_app_category"/>
+
+    </LinearLayout>
 </ScrollView>

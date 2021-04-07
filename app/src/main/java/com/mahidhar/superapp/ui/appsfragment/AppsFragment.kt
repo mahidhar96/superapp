@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -41,19 +43,41 @@ class AppsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view:View = inflater.inflate(R.layout.fragment_apps, container, false)
-        val financeRecyclerView:RecyclerView = view.findViewById(R.id.apps_finance_recycler_view)
-        val storesRecyclerView:RecyclerView = view.findViewById(R.id.apps_stores_recycler_view)
+        val view: View = inflater.inflate(R.layout.fragment_apps, container, false)
+//        val financeLayout: LinearLayout = view.findViewById(R.id.apps_finance_layout)
+//        val foodLayout: LinearLayout = view.findViewById(R.id.apps_food_layout)
+//        val travelLayout: LinearLayout = view.findViewById(R.id.apps_travel_layout)
+//        val shoppingLayout: LinearLayout = view.findViewById(R.id.apps_shopping_layout)
+//        val healthLayout: LinearLayout = view.findViewById(R.id.apps_health_layout)
+//        val dailyLayout: LinearLayout = view.findViewById(R.id.apps_daily_layout)
+//        val gamesLayout: LinearLayout = view.findViewById(R.id.apps_games_layout)
 
-        val featuredViewModel:FeaturedViewModel = ViewModelProvider(this).get(FeaturedViewModel::class.java)
+        val featuredViewModel: FeaturedViewModel =
+            ViewModelProvider(this).get(FeaturedViewModel::class.java)
         featuredViewModel.getMicroAppList().observe(
             viewLifecycleOwner,
             Observer<List<MicroApp>> { microAppList ->
-                financeRecyclerView?.adapter = FeaturedRecyclerViewAdapter(microAppList)
-                storesRecyclerView?.adapter = FeaturedRecyclerViewAdapter(microAppList)
+                setCategoryRecyclerView(view.findViewById(R.id.apps_finance_layout),"finance",microAppList)
+                setCategoryRecyclerView(view.findViewById(R.id.apps_food_layout),"food",microAppList)
+                setCategoryRecyclerView(view.findViewById(R.id.apps_travel_layout),"travel",microAppList)
+                setCategoryRecyclerView(view.findViewById(R.id.apps_shopping_layout),"shopping",microAppList)
+                setCategoryRecyclerView(view.findViewById(R.id.apps_health_layout),"health",microAppList)
+                setCategoryRecyclerView(view.findViewById(R.id.apps_daily_layout),"daily",microAppList)
+                setCategoryRecyclerView(view.findViewById(R.id.apps_games_layout),"games",microAppList)
+
             })
 
         return view
+    }
+
+    fun setCategoryRecyclerView(
+        layout: LinearLayout,
+        category: String,
+        miniAppList: List<MicroApp>
+    ) {
+        layout.findViewById<TextView>(R.id.category_textview).setText(category.capitalize())
+        layout.findViewById<RecyclerView>(R.id.category_recyclerview).adapter =
+            FeaturedRecyclerViewAdapter(miniAppList.filter { miniApp: MicroApp -> miniApp.category == category })
     }
 
     companion object {

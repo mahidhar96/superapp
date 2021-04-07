@@ -55,18 +55,18 @@ class FeaturedViewModel:ViewModel() {
         Log.i("Featured View Model", "Cleared")
     }
 
-    private fun populateList(){
-        val microAppList:List<MicroApp> = listOf(
-            MicroApp(0,"Pay Bills","Pay Bills", "web","receipt_black","https://www.infosys.com/"),
-            MicroApp(1,"Payment App","Scan & Pay", "web","payments_black","https://www.infosys.com/"),
-            MicroApp(2,"Food Delivery","Order Food", "web","dining_black","https://www.infosys.com/"),
-            MicroApp(3,"Bus Tickets","Book Bus Tickets", "instant","bus_black","https://www.infosys.com/"),
-            MicroApp(4,"Stuff Delivery","Send Stuff", "web","delivery_black","https://www.infosys.com/"),
-            MicroApp(5,"Flight Tickets","Book FLight Tickets", "instant","flight_black","https://www.infosys.com/"),
-            MicroApp(6,"Subscriptions","Subscribe and Pay", "web","subscriptions_black","https://www.infosys.com/"),
-            MicroApp(7,"Take Surveys","Take Surveys", "instant","qewewe","https://www.infosys.com/")
-        )
-
-        microAppLiveList!!.postValue(microAppList)
-    }
+//    private fun populateList(){
+//        val microAppList:List<MicroApp> = listOf(
+//            MicroApp(0,"Pay Bills","Pay Bills", "web","receipt_black","https://www.infosys.com/"),
+//            MicroApp(1,"Payment App","Scan & Pay", "web","payments_black","https://www.infosys.com/"),
+//            MicroApp(2,"Food Delivery","Order Food", "web","dining_black","https://www.infosys.com/"),
+//            MicroApp(3,"Bus Tickets","Book Bus Tickets", "instant","bus_black","https://www.infosys.com/"),
+//            MicroApp(4,"Stuff Delivery","Send Stuff", "web","delivery_black","https://www.infosys.com/"),
+//            MicroApp(5,"Flight Tickets","Book FLight Tickets", "instant","flight_black","https://www.infosys.com/"),
+//            MicroApp(6,"Subscriptions","Subscribe and Pay", "web","subscriptions_black","https://www.infosys.com/"),
+//            MicroApp(7,"Take Surveys","Take Surveys", "instant","qewewe","https://www.infosys.com/")
+//        )
+//
+//        microAppLiveList!!.postValue(microAppList)
+//    }
 }
