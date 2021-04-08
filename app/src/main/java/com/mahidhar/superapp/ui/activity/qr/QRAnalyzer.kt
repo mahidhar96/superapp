@@ -22,8 +22,6 @@ class QRAnalyzer(
         scanBarcode(imageProxy)
     }
 
-    var previewBarcode: Barcode? = null
-
     @SuppressLint("UnsafeExperimentalUsageError")
     private fun scanBarcode(imageProxy: ImageProxy) {
         imageProxy.image?.let { image ->
@@ -35,8 +33,8 @@ class QRAnalyzer(
                     activity.clearAnalyzer()
                     readBarcodeData(barcodes)
                 }
-                .addOnFailureListener{
-                    Log.i("NOQR","No QR Code Detected")
+                .addOnFailureListener {
+                    Log.i("NOQR", "No QR Code Detected")
                     imageProxy.close()
                 }
 //                .addOnCompleteListener {
@@ -53,14 +51,11 @@ class QRAnalyzer(
 
     private fun readBarcodeData(barcodes: List<Barcode>) {
         if (barcodes.size > 0) {
-            if (barcodes[0] != previewBarcode) {
-                previewBarcode= barcodes[0]
-                Log.i("QRCODE RAW VALUE", barcodes[0].rawValue.toString())
-                val intent = Intent(context, PaymentActivity::class.java)
-                intent.putExtra("raw", barcodes[0].rawValue.toString())
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent)
-            }
+            Log.i("QRCODE RAW VALUE", barcodes[0].rawValue.toString())
+            val intent = Intent(context, PaymentActivity::class.java)
+            intent.putExtra("raw", barcodes[0].rawValue.toString())
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent)
         }
 //        for (barcode in barcodes) {
 //            when (barcode.valueType) {
