@@ -3,6 +3,7 @@
     package="com.mahidhar.superapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -15,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Superapp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.booking.BookingItemActivity"/>
+        <activity android:name=".ui.activity.payment.PaymentActivity" />
+        <activity android:name=".ui.activity.qr.QRActivity" />
+        <activity android:name=".ui.activity.booking.BookingItemActivity" />
         <activity android:name=".ui.activity.booking.BookingActivity" />
         <activity
             android:name=".ui.activity.WebAppActivity"
